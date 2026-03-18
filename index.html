@@ -1742,6 +1742,12 @@ strong {
     animate();
   })();
   </script>
-
+<script>
+window.addEventListener("message", function(e) {
+  if(e.data.event && e.data.event === "calendly.event_scheduled") {
+    window.location.href = "/gracias.html";
+  }
+});
+</script>
 </body>
 </html>
