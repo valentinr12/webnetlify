@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PerformAds — Consigue Pacientes de Alto Valor</title>
+  <meta name="description" content="Método validado de Previsibilidad para Psicólogos y Coaches. Consigue al menos 4 pacientes nuevos de +$500USD todos los meses en 90 días.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+/* ========================================
+   VARIABLES & BASE
+   ======================================== */
+:root {
+  --color-bg-dark: #0a0a0f;
+  --color-bg-light: #F7F7F7;
+  --color-text-light-section: #111111;
+  --color-text-muted-light: #444444;
+  --color-text: #e4e4e7;
+  --color-text-muted: #a1a1aa;
+  --color-accent: #0967e4;
+  --color-accent-hover: #3a85f0;
+  --color-accent-glow: rgba(9, 103, 228, 0.3);
+  --color-highlight: #0967e4;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --container-max: 1100px;
+  --radius: 12px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+
+/* ========================================
+   CTA BUTTON
+   ======================================== */
+.cta-button {
+  display: inline-block;
+  padding: 20px 52px;
+  background: linear-gradient(135deg, var(--color-accent), #065cc7);
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 4px 24px var(--color-accent-glow);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px var(--color-accent-glow);
+  background: linear-gradient(135deg, var(--color-accent-hover), var(--color-accent));
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   CTA BUTTON — INNER GLOW HOVER EFFECT
+   ======================================== */
+.cta-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 60%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cta-button:hover::before {
+  transform: translateX(0);
+}
+
+/* ========================================
+   CUSTOM CURSOR GLOW
+   ======================================== */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-glow.cursor-glow--visible {
+  opacity: 1;
+}
+
+.section-light .cursor-glow-zone {
+  --cursor-glow-color: rgba(120,120,120,0.04);
+}
+
+.section-dark .cursor-glow-zone {
+  --cursor-glow-color: rgba(255,255,255,0.05);
+}
+
+/* ========================================
+   DARK SECTIONS (with canvas bg)
+   ======================================== */
+.section-dark {
+  position: relative;
+  background: var(--color-bg-dark);
+  color: var(--color-text);
+}
+
+.section-dark .particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-dark > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   LIGHT SECTIONS
+   ======================================== */
+.section-light {
+  position: relative;
+  background: var(--color-bg-light);
+  color: var(--color-text-light-section);
+}
+
+.section-light > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.section-light .lines-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-light strong {
+  color: var(--color-text-light-section);
+}
+
+.section-light .highlight {
+  color: var(--color-accent);
+}
+
+.section-light .section-title {
+  color: var(--color-text-light-section);
+}
+
+.section-light .cta-button {
+  box-shadow: 0 4px 24px rgba(9, 103, 228, 0.2);
+}
+
+/* ========================================
+   SECTION TRANSITION GRADIENTS
+   ======================================== */
+.section-transition {
+  position: relative;
+  height: 90px;
+  pointer-events: none;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+}
+
+.section-transition--dark-to-light {
+  background: linear-gradient(to bottom, var(--color-bg-dark), var(--color-bg-light));
+}
+
+.section-transition--light-to-dark {
+  background: linear-gradient(to bottom, var(--color-bg-light), var(--color-bg-dark));
+}
+
+/* ========================================
+   SCROLL ANIMATIONS
+   ======================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger children */
+.fade-in-children > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-children > *.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.hero .container {
+  max-width: 880px;
+}
+
+.hero__badge {
+  display: inline-block;
+  padding: 10px 28px;
+  background: rgba(9, 103, 228, 0.12);
+  border: 1px solid rgba(9, 103, 228, 0.35);
+  border-radius: 50px;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.hero__filter {
+  max-width: 680px;
+  margin: 0 auto 40px;
+  padding: 20px 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.hero__text {
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.hero__text p {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.hero__text p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ========================================
+   SOCIAL PROOF BAR (Hero)
+   ======================================== */
+.social-proof-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 520px;
+  margin: 32px auto 0;
+  padding: 12px 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(9,103,228,0.06) 100%);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  max-height: 70px;
+}
+
+/* Shimmer sweep effect */
+.social-proof-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.06) 40%,
+    rgba(255,255,255,0.10) 50%,
+    rgba(255,255,255,0.06) 60%,
+    transparent 100%
+  );
+  animation: shimmerSweep 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmerSweep {
+  0%   { left: -100%; }
+  40%  { left: 120%; }
+  100% { left: 120%; }
+}
+
+.social-proof-bar__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Avatar stack */
+.sp-avatars {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sp-avatars__img,
+.sp-avatars__initial {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  object-fit: cover;
+  display: block;
+}
+
+.sp-avatars__img:not(:first-child),
+.sp-avatars__initial {
+  margin-left: -10px;
+}
+
+.sp-avatars__initial {
+  background: #333;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sp-text {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Stars row */
+.sp-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  position: relative;
+  z-index: 2;
+  margin-top: 2px;
+}
+
+.sp-stars svg {
+  filter: drop-shadow(0 0 3px rgba(255,200,0,0.45));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .social-proof-bar {
+    max-width: 340px;
+    padding: 10px 16px;
+    max-height: 70px;
+  }
+
+  .sp-text {
+    font-size: 0.75rem;
+  }
+
+  .sp-avatars__img,
+  .sp-avatars__initial {
+    width: 26px;
+    height: 26px;
+  }
+
+  .sp-avatars__img:not(:first-child),
+  .sp-avatars__initial {
+    margin-left: -8px;
+  }
+}
+
+/* ========================================
+   PAIN POINTS SECTION (LIGHT)
+   ======================================== */
+.pain-points {
+  padding: 100px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: clamp(1.65rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 60px;
+  line-height: 1.3;
+}
+
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.pain-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.pain-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.pain-card--wide {
+  grid-column: 1 / -1;
+}
+
+.pain-card__icon {
+  color: var(--color-accent);
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.pain-card p {
+  font-size: 1.1rem;
+  color: var(--color-text-muted-light);
+  line-height: 1.75;
+}
+
+.pain-card p strong {
+  color: var(--color-text-light-section);
+}
+
+/* ========================================
+   SOLUTION SECTION (DARK)
+   ======================================== */
+.solution {
+  padding: 100px 0;
+}
+
+.solution__content {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.solution__content p {
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+
+.solution__lead {
+  font-size: 1.35rem !important;
+  color: var(--color-text) !important;
+}
+
+.solution__emphasis {
+  font-size: 1.6rem !important;
+  font-weight: 800;
+  color: #fff !important;
+  margin-bottom: 32px !important;
+}
+
+.solution__highlight {
+  background: rgba(9, 103, 228, 0.08);
+  border-left: 3px solid var(--color-accent);
+  padding: 24px 32px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 40px 0 48px;
+  text-align: left;
+}
+
+.solution .cta-button {
+  margin-top: 8px;
+}
+
+/* ========================================
+   METHOD / 3 STEPS (DARK)
+   ======================================== */
+.method {
+  padding: 100px 0;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.method-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  text-align: center;
+  transition: border-color 0.3s, transform 0.2s;
+}
+
+.method-card:hover {
+  border-color: rgba(9, 103, 228, 0.35);
+  transform: translateY(-4px);
+}
+
+.method-card__icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(9, 103, 228, 0.1);
+  border: 1px solid rgba(9, 103, 228, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: var(--color-accent);
+}
+
+/* Pillar icon pulse animation */
+.pillar-icon svg {
+  animation: pillarPulse 4s ease-in-out infinite;
+}
+
+@keyframes pillarPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Pillar card entrance animation */
+.pillar-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.pillar-card.pillar-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.method-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.method-card__text {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+/* ========================================
+   SOCIAL PROOF SECTION (LIGHT)
+   ======================================== */
+.social-proof {
+  padding: 100px 0;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px;
+  margin-top: 8px;
+  align-items: stretch;
+}
+
+.proof-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center card floating animation */
+@keyframes floatPablo {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+
+.proof-card--center {
+  animation: floatPablo 3s ease-in-out infinite;
+}
+
+.proof-card__image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  background: #eee;
+  flex-shrink: 0;
+}
+
+.proof-card__info {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.proof-card__name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-light-section);
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.proof-card__handle {
+  font-size: 0.95rem;
+  color: var(--color-text-muted-light);
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.proof-card__text {
+  font-size: 1rem;
+  color: var(--color-text-muted-light);
+  line-height: 1.7;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ========================================
+   SCARCITY SECTION (DARK)
+   ======================================== */
+.scarcity {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.scarcity__text {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  font-size: 1.25rem;
+  color: var(--color-text);
+  line-height: 1.8;
+}
+
+.scarcity__text strong {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+/* ========================================
+   CLOSING SECTION (DARK)
+   ======================================== */
+.closing {
+  padding: 100px 0;
+}
+
+.closing__content {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.closing__content p {
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  line-height: 1.8;
+}
+
+.closing__content p.closing__lead {
+  font-size: 1.3rem;
+  color: var(--color-text);
+}
+
+.closing__content p.closing__bold {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.closing__content p.closing__final {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 32px;
+  margin-bottom: 8px;
+}
+
+.closing .cta-button {
+  margin-top: 16px;
+}
+
+/* ========================================
+   FAQ SECTION (LIGHT)
+   ======================================== */
+.faq {
+  padding: 100px 0;
+}
+
+.faq .section-title {
+  color: var(--color-text-light-section);
+}
+
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 28px 0;
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-light-section);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  transition: color 0.2s;
+}
+
+.faq-question:hover {
+  color: var(--color-accent);
+}
+
+.faq-question__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(9, 103, 228, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: transform 0.3s;
+}
+
+.faq-item.active .faq-question__icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 400px;
+  padding-bottom: 28px;
+}
+
+.faq-answer p {
+  font-size: 1.1rem;
+  color: var(--color-text-muted-light);
+  line-height: 1.8;
+}
+
+/* ========================================
+   CALENDLY SECTION (DARK)
+   ======================================== */
+.calendly-section {
+  padding: 80px 0 40px;
+}
+
+.calendly-section .section-title {
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+.calendly-inline-widget {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  padding: 40px 0;
+  background: var(--color-bg-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 0;
+    min-height: auto;
+  }
+
+  .hero__badge {
+    font-size: 0.85rem;
+    padding: 8px 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero__text p {
+    font-size: 1.05rem;
+  }
+
+  .hero__filter {
+    font-size: 0.95rem;
+    padding: 16px 20px;
+  }
+
+  .pain-points {
+    padding: 60px 0;
+  }
+
+  .pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pain-card {
+    padding: 24px;
+  }
+
+  .pain-card--wide {
+    grid-column: auto;
+  }
+
+  .section-title {
+    margin-bottom: 40px;
+  }
+
+  .solution {
+    padding: 60px 0;
+  }
+
+  .solution__content p {
+    font-size: 1.05rem;
+  }
+
+  .solution__highlight {
+    padding: 20px 24px;
+  }
+
+  .method {
+    padding: 60px 0;
+  }
+
+  .method-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .method-card {
+    padding: 32px 24px;
+  }
+
+  .scarcity {
+    padding: 60px 0;
+  }
+
+  .scarcity__text {
+    font-size: 1.1rem;
+  }
+
+  .social-proof {
+    padding: 60px 0;
+  }
+
+  .proof-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+
+  .proof-card--center {
+    animation: none;
+  }
+
+  .closing {
+    padding: 60px 0;
+  }
+
+  .closing__content p {
+    font-size: 1.05rem;
+  }
+
+  .faq {
+    padding: 60px 0;
+  }
+
+  .faq-question {
+    font-size: 1.1rem;
+    padding: 24px 0;
+  }
+
+  .calendly-section {
+    padding: 40px 0 20px;
+  }
+
+  .cta-button {
+    padding: 18px 36px;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__title {
+    font-size: 1.65rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 1.45rem;
+  }
+
+  .solution__emphasis {
+    font-size: 1.35rem !important;
+  }
+
+  .closing__final {
+    font-size: 1.2rem !important;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- ========== HERO SECTION (DARK) ========== -->
+  <section class="hero section-dark">
+    <canvas class="particle-canvas" id="heroCanvas"></canvas>
+    <div class="container">
+      <div class="fade-in">
+        <span class="hero__badge">Coaches, Psicólogos y Terapeutas</span>
+      </div>
+      <h1 class="hero__title fade-in">
+        CONSIGUE AL MENOS <span class="highlight">4 PACIENTES NUEVOS</span> DE +$500&nbsp;USD TODOS LOS MESES EN <span class="highlight">90 DÍAS</span>
+      </h1>
+      <p class="hero__subtitle fade-in">
+        Con nuestro <strong>Método validado de Previsibilidad</strong> para Psicólogos y Coaches
+      </p>
+      <div class="hero__filter fade-in">
+        Esto es para profesionales que ya cobran más de $400 USD por sus tratamientos y quieren escalar de forma ordenada. Si recién estás empezando, este no es tu próximo paso.
+      </div>
+      <div class="hero__text fade-in">
+        <p>
+          Si eres un Coach, Psicólogo o Terapeuta que le interesa vivir de su profesión sin trabajar 12 horas por día, entonces toca el botón debajo para agendar tu sesión de crecimiento gratis.
+        </p>
+        <p>
+          En esta llamada vamos a analizar tu caso para darte claridad en qué está fallando, el plan de acción para resolverlo y opcionalmente ver si podemos trabajar juntos para ayudarte a implementar ese plan.
+        </p>
+      </div>
+      <div class="fade-in">
+        <a href="#calendly" class="cta-button">QUIERO AGENDAR MI LLAMADA</a>
+      </div>
+
+      <!-- Social Proof Bar -->
+      <div class="social-proof-bar fade-in">
+        <div class="social-proof-bar__top">
+          <div class="sp-avatars">
+            <img src="images/pablo.jpg" alt="" class="sp-avatars__img">
+            <img src="images/stefania.jpg" alt="" class="sp-avatars__img">
+            <img src="images/ignacio.jpg" alt="" class="sp-avatars__img">
+            <span class="sp-avatars__initial">A</span>
+            <span class="sp-avatars__initial">M</span>
+          </div>
+          <span class="sp-text">+20 profesionales ya escalan con nosotros</span>
+        </div>
+        <div class="sp-stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#f5c518" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#f5c518" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#f5c518" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#f5c518" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="halfStar"><stop offset="50%" stop-color="#f5c518"/><stop offset="50%" stop-color="#555"/></linearGradient></defs><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" fill="url(#halfStar)"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Transition: dark → light -->
+  <div class="section-transition section-transition--dark-to-light"></div>
+
+  <!-- ========== PAIN POINTS SECTION (LIGHT) ========== -->
+  <section class="pain-points section-light">
+    <canvas class="lines-canvas" id="painCanvas"></canvas>
+    <div class="container">
+      <h2 class="section-title fade-in">¿Algo de esto <span class="highlight">resuena contigo</span>?</h2>
+
+      <div class="pain-grid fade-in-children">
+        <div class="pain-card">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <p>Trabajas cada vez más horas y tu ingreso no crece proporcionalmente. El único camino que ves para ganar más es atender más, pero <strong>ya no tienes más tiempo para dar.</strong></p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <p>Hay meses buenos y meses malos, y nunca sabes cuál viene. <strong>Tu facturación depende de que alguien te recomiende</strong>, no de algo que tú controles.</p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </div>
+          <p>Si no estás encima de todo, algo se cae. <strong>No puedes despegarte porque no hay nadie más que lo sostenga.</strong></p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <p>Sabes que podrías cobrar más, pero cada vez que lo intentas aparece la resistencia. <strong>Terminas bajando el precio para no perder al paciente.</strong></p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <p><strong>Sientes que tus ingresos son impredecibles.</strong></p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <p>Estudiaste años para ser el/la mejor en lo tuyo, y sin embargo terminas dedicando tiempo y energía a <strong>perseguir pacientes, responder consultas de curiosos y hacer de vendedor.</strong></p>
+        </div>
+
+        <div class="pain-card pain-card--wide">
+          <div class="pain-card__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <p>Cada vez que te escribe alguien que no tiene presupuesto, que quiere "información sin compromiso" o que directamente no es tu perfil, <strong>pierdes tiempo que podrías estar usando para atender, estudiar o descansar.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition: light → dark -->
+  <div class="section-transition section-transition--light-to-dark"></div>
+
+  <!-- ========== SOLUTION + METHOD SECTION (DARK) ========== -->
+  <section class="solution section-dark">
+    <canvas class="particle-canvas" id="solutionCanvas"></canvas>
+    <div class="container">
+      <div class="solution__content">
+        <p class="solution__lead fade-in">
+          Si alguno de esos problemas resuena contigo, entonces tengo <strong>buenas noticias.</strong>
+        </p>
+        <p class="solution__emphasis fade-in">
+          Porque ninguno de esos es el verdadero problema.
+        </p>
+        <p class="fade-in">
+          El problema es que <strong>no estás implementando un método de previsibilidad</strong> para psicólogos y coaches con pacientes de alto valor.
+        </p>
+        <p class="fade-in">
+          Sigues dependiendo de recomendaciones y encima, de sesiones 1 a 1. Por lo que los pacientes se van, tienes muy poca previsibilidad mes a mes y estás atado/a a tu tiempo.
+        </p>
+        <p class="solution__highlight fade-in">
+          En su lugar deberías tener un <strong>sistema predecible</strong>, que te genere cientos de interesados por mes y que, quienes decidan trabajar contigo, se comprometan a un proceso completo pagando <span class="highlight">500, 800 o incluso +1200 dólares.</span>
+        </p>
+        <div class="fade-in">
+          <a href="#calendly" class="cta-button">QUIERO IMPLEMENTAR UN SISTEMA PREDECIBLE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== METHOD / 3 STEPS (DARK, same section visually) ========== -->
+  <section class="method section-dark">
+    <canvas class="particle-canvas" id="methodCanvas"></canvas>
+    <div class="container">
+      <h2 class="section-title fade-in">
+        Así es cómo dejarás de depender de recomendados y comenzarás a <span class="highlight">cobrar bien de manera constante.</span>
+      </h2>
+
+      <div class="method-grid" id="pillarGrid">
+        <div class="method-card pillar-card">
+          <div class="method-card__icon pillar-icon">
+            <!-- Pencil / Leaf icon for Desarrollo de oferta -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <h3 class="method-card__title">Desarrollo de oferta</h3>
+          <p class="method-card__text">Realizamos una investigación de mercado para crear una oferta irresistible que haga que las personas se desesperen por adquirirlo, incluso a valores mucho más altos que el estándar del mercado.</p>
+        </div>
+
+        <div class="method-card pillar-card">
+          <div class="method-card__icon pillar-icon">
+            <!-- Magnet icon for Desarrollo de sistema de adquisición -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v6a6 6 0 0 0 12 0V2"/><line x1="6" y1="2" x2="6" y2="6"/><line x1="18" y1="2" x2="18" y2="6"/><line x1="4" y1="2" x2="8" y2="2"/><line x1="16" y1="2" x2="20" y2="2"/><line x1="4" y1="6" x2="8" y2="6"/><line x1="16" y1="6" x2="20" y2="6"/></svg>
+          </div>
+          <h3 class="method-card__title">Desarrollo de sistema de adquisición</h3>
+          <p class="method-card__text">Desarrollamos tu comunicación y lanzamos tus campañas de alto rendimiento que atraigan a cientos de interesados por mes.</p>
+        </div>
+
+        <div class="method-card pillar-card">
+          <div class="method-card__icon pillar-icon">
+            <!-- Handshake icon for Desarrollo de equipo comercial -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="method-card__title">Desarrollo de equipo comercial</h3>
+          <p class="method-card__text">Insertamos equipos comerciales ya entrenados para que cierren las ventas en automático, sin que tengas que esforzarte o aprender nuevas habilidades.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition: dark → light -->
+  <div class="section-transition section-transition--dark-to-light"></div>
+
+  <!-- ========== SOCIAL PROOF SECTION (LIGHT) ========== -->
+  <section class="social-proof section-light">
+    <canvas class="lines-canvas" id="proofCanvas"></canvas>
+    <div class="container">
+      <h2 class="section-title fade-in">¿Cuáles son <span class="highlight">nuestros resultados</span>?</h2>
+
+      <div class="proof-grid">
+        <div class="proof-card fade-in">
+          <img src="images/stefania.jpg" alt="Stefania" class="proof-card__image">
+          <div class="proof-card__info">
+            <p class="proof-card__name">Stefania</p>
+            <p class="proof-card__handle">@omstefaniacoach</p>
+            <p class="proof-card__text">Stefania llegó en enero sin pacientes nuevos entrando. En febrero cerró 7 pacientes nuevos partiendo con un sistema integrado de cero. De $0 a $8.400 USD en un mes.</p>
+          </div>
+        </div>
+
+        <div class="proof-card proof-card--center fade-in">
+          <img src="images/pablo.jpg" alt="Pablo" class="proof-card__image">
+          <div class="proof-card__info">
+            <p class="proof-card__name">Pablo</p>
+            <p class="proof-card__handle">@juntosentuduelo</p>
+            <p class="proof-card__text">Pablo llegó cargando todo él solo: atendía, vendía y operaba su negocio cobrando $300 USD por paciente. Hoy tiene setters que agendan por él, un closer que cierra por él, y su ticket ronda los $1.000 USD. Trabaja menos, gana más y sabe cuánto va a facturar el mes que viene.</p>
+          </div>
+        </div>
+
+        <div class="proof-card fade-in">
+          <img src="images/ignacio.jpg" alt="Ignacio" class="proof-card__image">
+          <div class="proof-card__info">
+            <p class="proof-card__name">Ignacio</p>
+            <p class="proof-card__handle">@ignaciobrambati</p>
+            <p class="proof-card__text">Ignacio tenía una oferta a $400 USD y los cierres dependían de su suerte del mes. Ajustamos su oferta, subimos el ticket a $1.000 USD y hoy promedia 3 a 4 cierres mensuales estables.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition: light → dark -->
+  <div class="section-transition section-transition--light-to-dark"></div>
+
+  <!-- ========== SCARCITY SECTION (DARK) ========== -->
+  <section class="scarcity section-dark">
+    <canvas class="particle-canvas" id="scarcityCanvas"></canvas>
+    <div class="container">
+      <div class="fade-in">
+        <p class="scarcity__text">
+          Solo abrimos <strong>4 cupos nuevos por mes</strong> para garantizar la calidad y el acompañamiento de nuestra solución. Si estás viendo esta página, hay al menos un cupo disponible. Pero se asignan por orden de llamada y no se reservan.
+        </p>
+        <a href="#calendly" class="cta-button">QUIERO RESERVAR MI CUPO</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CLOSING SECTION (DARK) ========== -->
+  <section class="closing section-dark">
+    <canvas class="particle-canvas" id="closingCanvas"></canvas>
+    <div class="container">
+      <div class="closing__content">
+        <p class="closing__lead fade-in">
+          Si llegaste hasta acá, probablemente ya sabes que lo que estás haciendo hoy tiene un techo.
+        </p>
+        <p class="closing__bold fade-in">
+          No es falta de capacidad. Es falta de estructura. Y esa es exactamente la diferencia entre un profesional que trabaja para su negocio y uno cuyo negocio trabaja para él.
+        </p>
+        <p class="fade-in">
+          La llamada que te proponemos no es una presentación de ventas. Es una revisión honesta de tu situación: dónde estás, qué te está frenando y si tiene sentido que trabajemos juntos. Si no es así, te lo decimos directo y te vas con más claridad de la que entraste.
+        </p>
+        <p class="closing__final fade-in">
+          No hay momento perfecto. Hay decisiones que se toman o no se toman.
+        </p>
+        <div class="fade-in">
+          <a href="#calendly" class="cta-button">QUIERO AGENDAR MI LLAMADA</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transition: dark → light -->
+  <div class="section-transition section-transition--dark-to-light"></div>
+
+  <!-- ========== FAQ SECTION (LIGHT) ========== -->
+  <section class="faq section-light">
+    <canvas class="lines-canvas" id="faqCanvas"></canvas>
+    <div class="container">
+      <h2 class="section-title fade-in">Preguntas Frecuentes</h2>
+
+      <ul class="faq-list fade-in">
+        <li class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <span>¿Qué pasa si espero?</span>
+            <span class="faq-question__icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Los cupos pueden volver a abrir en un futuro. La pregunta es, ¿hace cuánto que estás esperando? Rompe con el patrón de indecisión que te trajo aquí y agenda la llamada ahora. No dejes para mañana lo que puedes hacer hoy.</p>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <span>¿Cómo funciona la llamada?</span>
+            <span class="faq-question__icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Es una llamada mediante Google Meet de 45 a 60 minutos. Entenderemos en profundidad tu situación para ver si nuestro método podría ayudarte de algún modo. En caso de poder hacerlo analizaremos la opción de trabajar juntos. En caso de no poder hacerlo no te quitaremos tiempo innecesario y te llevarás más claridad sobre cómo avanzar.</p>
+          </div>
+        </li>
+
+        <li class="faq-item">
+          <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+            <span>¿Qué resultados puedo esperar?</span>
+            <span class="faq-question__icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Si no agendas puedes esperar seguir igual que como has estado hasta ahora. Si agendas, entonces puedes esperar comenzar a tener tus pacientes high ticket mes a mes.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Transition: light → dark -->
+  <div class="section-transition section-transition--light-to-dark"></div>
+
+  <!-- ========== CALENDLY INLINE SECTION (DARK) ========== -->
+  <section class="calendly-section section-dark" id="calendly">
+    <canvas class="particle-canvas" id="calendlyCanvas"></canvas>
+    <div class="container">
+      <h2 class="section-title fade-in">Agenda tu llamada ahora</h2>
+      <div class="fade-in">
+        <div class="calendly-inline-widget" data-url="https://calendly.com/performadsmkt/45min" style="min-width:320px;height:700px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 PerformAds MKT. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Calendly widget script -->
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+  <script>
+  // ========================================
+  // PARTICLE ANIMATION FOR DARK SECTIONS
+  // ========================================
+  (function() {
+    const canvases = document.querySelectorAll('.particle-canvas');
+
+    canvases.forEach(function(canvas) {
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let animFrame;
+      let w, h;
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        w = canvas.width = rect.width;
+        h = canvas.height = rect.height;
+      }
+
+      function createParticles() {
+        particles = [];
+        const count = Math.floor((w * h) / 22000);
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: Math.random() * 2.2 + 0.8
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        var fadeZone = 90;
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h;
+          if (p.y > h) p.y = 0;
+
+          // Edge fade
+          var edgeFade = 1;
+          if (p.y < fadeZone) edgeFade = p.y / fadeZone;
+          else if (p.y > h - fadeZone) edgeFade = (h - p.y) / fadeZone;
+          if (edgeFade < 0) edgeFade = 0;
+
+          var alpha = (0.33 * edgeFade).toFixed(3);
+          ctx.fillStyle = 'rgba(9, 103, 228, ' + alpha + ')';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Draw subtle lines between close particles
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = dx * dx + dy * dy;
+            if (dist < 18000) {
+              var midY = (particles[i].y + particles[j].y) / 2;
+              var eFade = 1;
+              if (midY < fadeZone) eFade = midY / fadeZone;
+              else if (midY > h - fadeZone) eFade = (h - midY) / fadeZone;
+              if (eFade < 0) eFade = 0;
+              ctx.strokeStyle = 'rgba(9, 103, 228, ' + (0.12 * eFade).toFixed(3) + ')';
+              ctx.lineWidth = 0.6;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        animFrame = requestAnimationFrame(draw);
+      }
+
+      // Use IntersectionObserver to only animate visible sections
+      let isVisible = false;
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !isVisible) {
+            isVisible = true;
+            resize();
+            createParticles();
+            draw();
+          } else if (!entry.isIntersecting && isVisible) {
+            isVisible = false;
+            cancelAnimationFrame(animFrame);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      observer.observe(canvas.parentElement);
+
+      window.addEventListener('resize', function() {
+        if (isVisible) {
+          resize();
+          createParticles();
+        }
+      });
+    });
+  })();
+
+  // ========================================
+  // ANIMATED LINES FOR LIGHT SECTIONS
+  // ========================================
+  (function() {
+    var lineCanvases = document.querySelectorAll('.lines-canvas');
+
+    lineCanvases.forEach(function(canvas) {
+      var ctx = canvas.getContext('2d');
+      var lines = [];
+      var animFrame;
+      var w, h;
+      var fadeZone = 90; // match transition gradient height
+
+      function resize() {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        w = canvas.width = rect.width;
+        h = canvas.height = rect.height;
+      }
+
+      function createLines() {
+        lines = [];
+        var count = Math.floor((w * h) / 40000);
+        if (count < 8) count = 8;
+        if (count > 30) count = 30;
+        for (var i = 0; i < count; i++) {
+          var angle = (Math.random() * 60 + 30) * (Math.PI / 180); // 30-90 degree diagonals
+          if (Math.random() > 0.5) angle = -angle;
+          var len = Math.random() * 180 + 120;
+          lines.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            angle: angle,
+            length: len,
+            speed: (Math.random() * 0.25 + 0.1),
+            dirX: Math.cos(angle),
+            dirY: Math.sin(angle),
+            thickness: Math.random() * 0.8 + 0.4,
+            hue: Math.random() > 0.5 ? 0 : 220, // 0 = gray, 220 = blue
+            curve: Math.random() * 40 - 20, // curve offset for control point
+            phase: Math.random() * Math.PI * 2 // for gentle oscillation
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+
+        for (var i = 0; i < lines.length; i++) {
+          var l = lines[i];
+
+          // Slow movement along the line direction
+          l.x += l.dirX * l.speed;
+          l.y += l.dirY * l.speed;
+          l.phase += 0.003;
+
+          // Wrap around
+          if (l.x < -l.length) l.x = w + l.length;
+          if (l.x > w + l.length) l.x = -l.length;
+          if (l.y < -l.length) l.y = h + l.length;
+          if (l.y > h + l.length) l.y = -l.length;
+
+          var x1 = l.x;
+          var y1 = l.y;
+          var x2 = l.x + l.dirX * l.length;
+          var y2 = l.y + l.dirY * l.length;
+          var cx = (x1 + x2) / 2 + Math.sin(l.phase) * l.curve;
+          var cy = (y1 + y2) / 2 + Math.cos(l.phase) * l.curve;
+
+          // Calculate vertical fade for top and bottom edges
+          var midY = (y1 + y2) / 2;
+          var edgeFade = 1;
+          if (midY < fadeZone) {
+            edgeFade = midY / fadeZone;
+          } else if (midY > h - fadeZone) {
+            edgeFade = (h - midY) / fadeZone;
+          }
+          if (edgeFade < 0) edgeFade = 0;
+
+          // Luminous gradient along the line
+          var grad = ctx.createLinearGradient(x1, y1, x2, y2);
+          var baseAlpha = (l.hue === 220) ? 0.38 : 0.35;
+          var glowAlpha = (l.hue === 220) ? 0.55 : 0.50;
+          baseAlpha *= edgeFade;
+          glowAlpha *= edgeFade;
+          var color = (l.hue === 220) ? '70,85,120' : '80,80,80';
+
+          grad.addColorStop(0, 'rgba(' + color + ',' + (baseAlpha * 0.3).toFixed(3) + ')');
+          grad.addColorStop(0.35, 'rgba(' + color + ',' + (glowAlpha).toFixed(3) + ')');
+          grad.addColorStop(0.5, 'rgba(' + color + ',' + (glowAlpha * 1.15).toFixed(3) + ')');
+          grad.addColorStop(0.65, 'rgba(' + color + ',' + (glowAlpha).toFixed(3) + ')');
+          grad.addColorStop(1, 'rgba(' + color + ',' + (baseAlpha * 0.3).toFixed(3) + ')');
+
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.quadraticCurveTo(cx, cy, x2, y2);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = l.thickness;
+          ctx.stroke();
+        }
+
+        animFrame = requestAnimationFrame(draw);
+      }
+
+      var isVisible = false;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !isVisible) {
+            isVisible = true;
+            resize();
+            createLines();
+            draw();
+          } else if (!entry.isIntersecting && isVisible) {
+            isVisible = false;
+            cancelAnimationFrame(animFrame);
+          }
+        });
+      }, { threshold: 0.05 });
+
+      observer.observe(canvas.parentElement);
+
+      window.addEventListener('resize', function() {
+        if (isVisible) {
+          resize();
+          createLines();
+        }
+      });
+    });
+  })();
+
+  // ========================================
+  // SCROLL FADE-IN ANIMATIONS
+  // ========================================
+  (function() {
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeChildrenContainers = document.querySelectorAll('.fade-in-children');
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    fadeEls.forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Staggered children
+    const childObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const children = entry.target.children;
+          for (let i = 0; i < children.length; i++) {
+            (function(index) {
+              setTimeout(function() {
+                children[index].classList.add('visible');
+              }, index * 100);
+            })(i);
+          }
+          childObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    fadeChildrenContainers.forEach(function(el) {
+      childObserver.observe(el);
+    });
+  })();
+
+  // ========================================
+  // PILLAR CARDS STAGGERED ENTRANCE (400ms interval)
+  // ========================================
+  (function() {
+    var pillarGrid = document.getElementById('pillarGrid');
+    if (!pillarGrid) return;
+    var pillarCards = pillarGrid.querySelectorAll('.pillar-card');
+
+    var pillarObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          pillarCards.forEach(function(card, i) {
+            setTimeout(function() {
+              card.classList.add('pillar-visible');
+            }, i * 400);
+          });
+          pillarObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    pillarObserver.observe(pillarGrid);
+  })();
+
+  // ========================================
+  // SMOOTH SCROLL FOR CTA BUTTONS
+  // ========================================
+  document.querySelectorAll('a[href="#calendly"]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.getElementById('calendly');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ========================================
+  // CUSTOM CURSOR GLOW — LERP + RAF
+  // ========================================
+  (function() {
+    var glow = document.getElementById('cursorGlow');
+    if (!glow || window.matchMedia('(pointer: coarse)').matches) return;
+
+    var mouseX = 0, mouseY = 0;
+    var glowX = 0, glowY = 0;
+    var speed = 0.12;
+    var visible = false;
+
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!visible) {
+        visible = true;
+        glow.classList.add('cursor-glow--visible');
+      }
+
+      // Detect if cursor is over a light or dark section
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+      if (el) {
+        var section = el.closest('.section-light, .section-dark');
+        if (section && section.classList.contains('section-light')) {
+          glow.style.background = 'radial-gradient(circle, rgba(120,120,120,0.04) 0%, transparent 70%)';
+        } else {
+          glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)';
+        }
+      }
+    });
+
+    document.addEventListener('mouseleave', function() {
+      visible = false;
+      glow.classList.remove('cursor-glow--visible');
+    });
+
+    function animate() {
+      glowX += (mouseX - glowX) * speed;
+      glowY += (mouseY - glowY) * speed;
+      glow.style.transform = 'translate(' + (glowX - 175) + 'px, ' + (glowY - 175) + 'px)';
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+  </script>
+
+</body>
+</html>
