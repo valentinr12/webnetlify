@@ -1277,11 +1277,13 @@ src="https://www.facebook.com/tr?id=761581999911779&ev=PageView&noscript=1"
         if (document.hidden) stop(); else start();
       });
     })();
-    window.addEventListener('message', function(e) {
-  if (e.data.event === 'calendly.event_scheduled') {
-    window.location.href = '/gracias.html';
+   <script>
+window.addEventListener("message", function(e) {
+  if(e.data.event && e.data.event === "calendly.event_scheduled") {
+    window.location.href = "/gracias.html";
   }
 });
+</script>
   </script>
 </body>
 </html>
