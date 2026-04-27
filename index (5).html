@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performads — Sistema de Adquisición de Pacientes para Profesionales de la Salud</title>
+  <meta name="description" content="Agencia de marketing especializada en profesionales de la salud. Generá +100 consultas mensuales con el Protocolo SAP. Garantía por contrato.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --color-dark: #0A1628;
+      --color-deep: #1E3A5F;
+      --color-accent: #00A8E8;
+      --color-accent-glow: rgba(0, 168, 232, 0.35);
+      --color-white: #FFFFFF;
+      --color-bg-alt: #F7F9FC;
+      --color-text: #1A1A2A;
+      --color-text-muted: #5A6A82;
+      --color-text-on-dark: rgba(255, 255, 255, 0.85);
+      --color-green: #00C896;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-border-light: rgba(10, 22, 40, 0.08);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --container: 1180px;
+      --radius: 14px;
+      --shadow-sm: 0 4px 20px rgba(10, 22, 40, 0.06);
+      --shadow-md: 0 10px 40px rgba(10, 22, 40, 0.1);
+      --shadow-lg: 0 22px 60px rgba(10, 22, 40, 0.18);
+      --shadow-accent: 0 12px 30px rgba(0, 168, 232, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--color-text);
+      background: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    section { padding: 110px 0; position: relative; overflow: hidden; }
+    @media (max-width: 768px) { section { padding: 72px 0; } }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 { font-family: var(--font); letter-spacing: -0.02em; line-height: 1.08; }
+    h1 { font-weight: 900; font-size: clamp(3rem, 6vw, 5.5rem); }
+    h2 { font-weight: 800; font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.1; }
+    h3 { font-weight: 800; font-size: clamp(1.4rem, 2.2vw, 1.85rem); }
+    h4 { font-weight: 700; font-size: 1.15rem; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 18px;
+    }
+
+    .section-dark { background: var(--color-dark); color: var(--color-text-on-dark); }
+    .section-dark h1, .section-dark h2, .section-dark h3, .section-dark h4 { color: var(--color-white); }
+    .section-light { background: var(--color-bg-alt); }
+    .section-white { background: var(--color-white); }
+
+    /* DECORATIVE BLOBS (background shapes) */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob--accent { background: rgba(0, 168, 232, 0.45); }
+    .blob--accent-soft { background: rgba(0, 168, 232, 0.18); }
+    .blob--blue { background: rgba(30, 58, 95, 0.18); }
+    .blob--blue-soft { background: rgba(30, 58, 95, 0.10); }
+    .blob--xl { width: 520px; height: 520px; }
+    .blob--lg { width: 380px; height: 380px; }
+    .blob--md { width: 280px; height: 280px; }
+    .blob--tl { top: -160px; left: -160px; }
+    .blob--tr { top: -140px; right: -160px; }
+    .blob--bl { bottom: -180px; left: -160px; }
+    .blob--br { bottom: -160px; right: -180px; }
+    @media (max-width: 768px) {
+      .blob { filter: blur(54px); opacity: 0.55; }
+      .blob--xl { width: 312px; height: 312px; }
+      .blob--lg { width: 228px; height: 228px; }
+      .blob--md { width: 168px; height: 168px; }
+    }
+
+    /* WAVE DIVIDERS */
+    .wave-divider {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      line-height: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .wave-divider svg { display: block; width: 100%; height: 70px; }
+    .wave-divider--top { top: -1px; }
+    .wave-divider--bottom { bottom: -1px; }
+    @media (max-width: 768px) {
+      .wave-divider svg { height: 48px; }
+    }
+
+    /* BUTTON */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 36px;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: 0.01em;
+      color: var(--color-white);
+      background: var(--color-accent);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: var(--shadow-accent);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); background: #00b8fb; box-shadow: 0 16px 40px rgba(0, 168, 232, 0.5); }
+    .btn:active { transform: translateY(0); }
+    .btn--sm { padding: 12px 22px; font-size: 0.92rem; }
+    .btn--lg { padding: 22px 44px; font-size: 1.1rem; }
+    .btn i { font-size: 0.9em; }
+
+    .friction {
+      display: block;
+      margin: 14px auto 0;
+      color: var(--color-text-muted);
+      font-size: 0.88rem;
+      max-width: 520px;
+      text-align: center;
+    }
+    .section-dark .friction { color: rgba(255, 255, 255, 0.55); }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 22, 40, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border);
+      transition: background 0.3s ease;
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .logo {
+      font-weight: 900;
+      font-size: 1.45rem;
+      color: var(--color-white);
+      letter-spacing: -0.03em;
+    }
+    .logo span { color: var(--color-accent); }
+
+    /* HERO */
+    .hero {
+      color: var(--color-text-on-dark);
+      padding: 180px 0 140px;
+      position: relative;
+      background: linear-gradient(125deg, #0A1628 0%, #0F2440 35%, #16335E 65%, #0A1628 100%);
+      background-size: 220% 220%;
+      animation: heroGradient 10s ease-in-out infinite;
+    }
+    @keyframes heroGradient {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero { animation: none; }
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0, 168, 232, 0.18) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -120px; left: -120px;
+      width: 380px; height: 380px;
+      border: 2px solid rgba(0, 168, 232, 0.15);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-deco {
+      position: absolute; top: 18%; right: 8%;
+      width: 220px; height: 220px;
+      border: 2px solid var(--color-accent);
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      opacity: 0.2;
+      animation: float 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-20px) rotate(20deg); }
+    }
+    @media (max-width: 900px) { .hero-deco { display: none; } }
+
+    #hero-particles {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-attention {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(0, 168, 232, 0.12);
+      color: var(--color-accent);
+      border: 1px solid rgba(0, 168, 232, 0.25);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      color: var(--color-white);
+      margin-bottom: 24px;
+      max-width: 950px;
+    }
+    .hero h1 .accent { color: var(--color-accent); }
+
+    .hero-sub {
+      font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+      max-width: 720px;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .important-block {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 22px 26px;
+      background: linear-gradient(135deg, rgba(0, 168, 232, 0.12), rgba(30, 58, 95, 0.4));
+      border-left: 4px solid var(--color-accent);
+      border-radius: 10px;
+      margin-bottom: 36px;
+      max-width: 820px;
+    }
+    .important-block i {
+      color: var(--color-accent);
+      font-size: 1.4rem;
+      margin-top: 2px;
+    }
+    .important-block p { color: var(--color-white); font-weight: 500; line-height: 1.55; }
+    .important-block strong { color: var(--color-accent); font-weight: 800; }
+
+    .social-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .social-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .social-pill i { color: var(--color-accent); }
+
+    /* HOOK */
+    .hook { padding: 90px 0; }
+    .hook-card {
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hook-card .quote {
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--color-text);
+      margin-bottom: 36px;
+    }
+    .hook-card .quote em { color: var(--color-accent); font-style: normal; }
+
+    /* SECTION HEADER */
+    .section-head {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 70px;
+    }
+    .section-head p {
+      margin-top: 18px;
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+    }
+    .section-dark .section-head p { color: rgba(255, 255, 255, 0.7); }
+
+    /* PROBLEM */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 50px;
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media (min-width: 768px) {
+      .problem-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .problem-card {
+      background: var(--color-white);
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--color-accent);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .problem-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .problem-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(0, 168, 232, 0.1);
+      color: var(--color-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 22px;
+      flex-shrink: 0;
+    }
+    .problem-card h3 { font-size: 1.2rem; margin-bottom: 12px; line-height: 1.3; }
+    .problem-card p { color: var(--color-text-muted); font-size: 0.98rem; line-height: 1.6; }
+
+    .closing-line {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+      color: var(--color-text);
+      font-weight: 600;
+      padding: 24px 30px;
+      background: var(--color-white);
+      border-radius: 12px;
+      border-left: 4px solid var(--color-accent);
+    }
+
+    /* SOLUTION */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 26px;
+      margin: 60px 0 48px;
+    }
+    .pillar {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--color-accent);
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pillar:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 50px rgba(0, 168, 232, 0.18);
+    }
+    .pillar-num {
+      font-family: var(--font);
+      font-weight: 900;
+      font-size: 2.4rem;
+      color: var(--color-accent);
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+      line-height: 1;
+    }
+    .pillar h3 { color: var(--color-white); font-size: 1.25rem; margin-bottom: 12px; }
+    .pillar p { color: rgba(255, 255, 255, 0.7); font-size: 0.98rem; line-height: 1.65; }
+
+    .solution-cta { text-align: center; margin-top: 30px; }
+
+    /* WHY PERFORMADS */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 50px;
+    }
+    .why-stat {
+      background: var(--color-white);
+      border-radius: var(--radius);
+      padding: 38px 28px;
+      box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--color-accent);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .why-stat:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .why-stat .num {
+      font-size: clamp(2.5rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--color-accent);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .why-stat .label {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+    .why-text {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+      color: var(--color-text);
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+    .why-text p + p { margin-top: 18px; }
+
+    /* ABOUT */
+    .about-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 60px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--color-bg-alt);
+      border-radius: 999px;
+      font-weight: 700;
+      color: var(--color-text);
+      font-size: 0.98rem;
+      border: 1px solid var(--color-border-light);
+    }
+    .badge i { color: var(--color-accent); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    @media (max-width: 850px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .about-text { text-align: center; }
+    }
+    .about-photo {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .about-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(10, 22, 40, 0.2));
+      pointer-events: none;
+    }
+    .about-photo img { width: 100%; height: 500px; object-fit: cover; }
+    .about-text h2 { margin-bottom: 26px; }
+    .about-text p {
+      color: var(--color-text-muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+    .about-text p + p { margin-top: 16px; }
+    .about-text .signature {
+      margin-top: 24px;
+      font-style: italic;
+      color: var(--color-text);
+    }
+
+    /* GUARANTEE */
+    .guarantee-block {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      border: 2px solid rgba(0, 200, 150, 0.2);
+      position: relative;
+    }
+    @media (max-width: 600px) { .guarantee-block { padding: 36px 24px; } }
+    .guarantee-shield {
+      width: 88px; height: 88px;
+      background: var(--color-green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-white);
+      font-size: 2.2rem;
+      margin: 0 auto 24px;
+      box-shadow: 0 14px 30px rgba(0, 200, 150, 0.3);
+    }
+    .guarantee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(0, 200, 150, 0.1);
+      color: var(--color-green);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .guarantee-block h2 { margin-bottom: 18px; }
+    .guarantee-block p {
+      color: var(--color-text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    .guarantee-block p + p { margin-top: 14px; }
+    .guarantee-block .highlight {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: background 0.2s ease;
+    }
+    .faq-item.active { background: rgba(255, 255, 255, 0.06); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 28px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-white);
+      gap: 20px;
+    }
+    .faq-q .chev {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 168, 232, 0.15);
+      color: var(--color-accent);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s ease, background 0.2s ease;
+      flex-shrink: 0;
+    }
+    .faq-item.active .chev { transform: rotate(180deg); background: var(--color-accent); color: var(--color-white); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 28px;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.7;
+    }
+    .faq-item.active .faq-a {
+      max-height: 400px;
+      padding: 0 28px 24px;
+    }
+
+    /* CTA FINAL */
+    .cta-final {
+      background: linear-gradient(135deg, #1E3A5F 0%, #00A8E8 100%);
+      color: var(--color-white);
+      text-align: center;
+    }
+    .cta-final h2 {
+      color: var(--color-white);
+      max-width: 780px;
+      margin: 0 auto 24px;
+    }
+    .cta-final p {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.65;
+    }
+    .cta-final .btn {
+      background: var(--color-white);
+      color: var(--color-deep);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+    }
+    .cta-final .btn:hover { background: #f0f0f0; transform: translateY(-2px); }
+    .cta-final .friction { color: rgba(255, 255, 255, 0.78); }
+
+    /* CALENDAR */
+    .calendar-section { background: var(--color-white); }
+    .calendar-section .section-head { margin-bottom: 40px; }
+    .calendar-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--color-bg-alt);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border-light);
+    }
+    .calendar-wrap iframe { display: block; width: 100%; }
+
+    /* FOOTER */
+    footer {
+      background: var(--color-dark);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 50px 0 36px;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+    footer .logo { display: inline-block; margin-bottom: 18px; }
+    footer p { font-size: 0.9rem; max-width: 720px; margin: 0 auto; line-height: 1.6; }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { padding: 140px 0 100px; }
+      .important-block { flex-direction: column; gap: 12px; padding: 20px; }
+      .nav-inner { padding: 14px 20px; }
+      .btn { padding: 16px 28px; font-size: 0.98rem; }
+      .btn--lg { padding: 18px 32px; font-size: 1.02rem; }
+      .guarantee-block { padding: 40px 24px; }
+      .pillar, .problem-card { padding: 28px 22px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.4rem; }
+      .social-pill { font-size: 0.82rem; padding: 8px 14px; }
+      .badge { font-size: 0.88rem; padding: 12px 18px; }
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '761581999911779');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=761581999911779&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">Perform<span>ads</span></a>
+      <a href="#calendario" class="btn btn--sm scroll-link" onclick="fbq('track', 'Lead')">
+        <i class="fa-solid fa-calendar-check"></i> Agendar llamada
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <canvas id="hero-particles" aria-hidden="true"></canvas>
+    <div class="hero-deco"></div>
+    <div class="container">
+      <span class="hero-attention reveal">⚡ Atención: Odontólogos, Médicos y Especialistas en Salud</span>
+      <h1 class="reveal">
+        Generá <span class="accent">+100 consultas mensuales</span> de pacientes calificados en tu ciudad, invirtiendo menos de 2 horas semanales de tu tiempo.
+      </h1>
+      <p class="hero-sub reveal">
+        Sistema predecible de adquisición para profesionales de la salud. Sin depender del boca en boca, sin redes sociales agotadoras y sin perder horas con curiosos.
+      </p>
+
+      <div class="important-block reveal">
+        <i class="fa-solid fa-shield-halved"></i>
+        <p><strong>IMPORTANTE — Garantía por contrato:</strong> Si no generamos tus primeras 60 consultas en 30 días, trabajamos gratis hasta lograrlo. El riesgo corre por nuestra cuenta.</p>
+      </div>
+
+      <div class="social-bar reveal">
+        <span class="social-pill"><i class="fa-solid fa-user-doctor"></i> +59 profesionales con agenda predecible</span>
+        <span class="social-pill"><i class="fa-solid fa-file-contract"></i> Garantía por contrato</span>
+        <span class="social-pill"><i class="fa-solid fa-location-dot"></i> Solo 2 por zona</span>
+      </div>
+
+      <a href="#calendario" class="btn btn--lg scroll-link reveal" onclick="fbq('track', 'Lead')">
+        Agendar mi asesoría gratis <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <span class="friction reveal">Aceptamos un máximo de 4 clientes nuevos por mes para garantizar la calidad del proceso.</span>
+    </div>
+
+    <!-- Wave divider into the next (light) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C240,80 480,0 720,30 C960,60 1200,20 1440,50 L1440,70 L0,70 Z" fill="#F7F9FC"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- HOOK -->
+  <section class="hook section-light">
+    <span class="blob blob--blue-soft blob--lg blob--tl" aria-hidden="true"></span>
+    <div class="container">
+      <div class="hook-card reveal">
+        <p class="quote">
+          "Conocé el sistema de <em>3 pasos</em> que estamos usando para llenar las agendas de profesionales de la salud sin publicaciones orgánicas, sin boca en boca y sin quitarte tiempo de consulta."
+        </p>
+        <a href="#calendario" class="btn scroll-link" onclick="fbq('track', 'Lead')">
+          Agendar mi asesoría gratis <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="friction">Aceptamos un máximo de 4 clientes nuevos por mes para garantizar la calidad del proceso.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section-light" style="padding-top:0;">
+    <span class="blob blob--blue-soft blob--xl blob--br" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">El problema</span>
+        <h2>¿Tu agenda depende de la suerte o de que alguien se acuerde de recomendarte?</h2>
+        <p>La mayoría de los profesionales de la salud conviven con los mismos problemas:</p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+          <h3>Huecos en tu agenda que duelen en el bolsillo</h3>
+          <p>Cada hora vacía es dinero de alquiler ya pagado que se evapora, y tiempo que no volvés a recuperar.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i class="fa-solid fa-comments"></i></div>
+          <h3>El boca en boca te tiene rehén</h3>
+          <p>Sabés que funciona, pero no podés acelerarlo, no podés predecirlo y mucho menos escalarlo. Tu agenda del mes que viene es un misterio.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <h3>Te cansaste de los "¿cuánto sale?"</h3>
+          <p>Personas que preguntan, piden descuento y desaparecen. Energía y tiempo tirados a la basura sin un solo turno confirmado.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i class="fa-solid fa-pause"></i></div>
+          <h3>Si vos no estás, el ingreso se detiene</h3>
+          <p>No tenés un consultorio, tenés un autoempleo sin vacaciones. Si te enfermás o querés tomar unos días, tu facturación cae a cero.</p>
+        </div>
+      </div>
+
+      <p class="closing-line reveal">
+        Esa es la diferencia entre un profesional que <strong>trabaja para su consultorio</strong> y uno cuyo consultorio <strong>trabaja para él</strong>.
+      </p>
+    </div>
+
+    <!-- Wave divider into the next (dark) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C240,70 480,10 720,40 C960,70 1200,20 1440,40 L1440,70 L0,70 Z" fill="#0A1628"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section-dark">
+    <span class="blob blob--accent-soft blob--xl blob--tr" aria-hidden="true"></span>
+    <span class="blob blob--accent-soft blob--lg blob--bl" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">La solución</span>
+        <h2>Nuestro <span style="color:var(--color-accent);">Protocolo SAP</span><br>Sistema de Atracción de Pacientes</h2>
+        <p>Somos especialistas en adquisición. Nuestro protocolo es un sistema diseñado para que tu agenda se llene sin que tengas que estar pendiente.</p>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-num">01</div>
+          <h3>Impacto Local Segmentado</h3>
+          <p>Solo impactamos a personas en el radio de acción real de tu clínica o consultorio. Y si atendés online, podemos llegar a cualquier parte del mundo.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">02</div>
+          <h3>Kit de Conversión para WhatsApp</h3>
+          <p>Te entregamos los scripts exactos para que vos o tu secretaria/o conviertan los "¿cuánto sale?" en turnos confirmados.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-num">03</div>
+          <h3>Transparencia Total</h3>
+          <p>Tendremos contacto constante para ver los números de forma clara y refinar el sistema constantemente.</p>
+        </div>
+      </div>
+
+      <div class="solution-cta reveal">
+        <a href="#calendario" class="btn btn--lg scroll-link" onclick="fbq('track', 'Lead')">
+          Quiero agendar mi llamada <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="friction">Aceptamos un máximo de 4 clientes nuevos por mes para garantizar la calidad del proceso.</span>
+      </div>
+    </div>
+
+    <!-- Wave divider into the next (light) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C240,10 480,70 720,30 C960,0 1200,60 1440,30 L1440,70 L0,70 Z" fill="#F7F9FC"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- WHY PERFORMADS -->
+  <section class="section-light">
+    <span class="blob blob--blue-soft blob--lg blob--tr" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Diferenciación</span>
+        <h2>¿Por qué Performads?</h2>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-stat reveal">
+          <div class="num">+2</div>
+          <div class="label">Años especializados en salud</div>
+        </div>
+        <div class="why-stat reveal">
+          <div class="num">+59</div>
+          <div class="label">Profesionales con agenda predecible</div>
+        </div>
+        <div class="why-stat reveal">
+          <div class="num">100%</div>
+          <div class="label">Foco en LATAM y profesionales de salud</div>
+        </div>
+      </div>
+
+      <div class="why-text reveal">
+        <p>Llevamos <strong>+2 años trabajando exclusivamente con profesionales de la salud en Latinoamérica</strong>. Conocemos las restricciones éticas del sector, la psicología del paciente y lo que convierte una consulta de WhatsApp en un turno confirmado.</p>
+        <p>Más de <strong>+59 profesionales ya tienen agendas predecibles</strong>. Vos dedicáte a sanar, nosotros nos encargamos de que nunca falte gente en tu sala de espera.</p>
+      </div>
+    </div>
+
+    <!-- Wave divider into the next (white) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C240,80 480,0 720,30 C960,60 1200,20 1440,50 L1440,70 L0,70 Z" fill="#FFFFFF"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-white">
+    <span class="blob blob--blue-soft blob--lg blob--tl" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sobre mí</span>
+        <h2>Conocé al fundador</h2>
+      </div>
+
+      <div class="about-badges reveal">
+        <span class="badge"><i class="fa-solid fa-user-doctor"></i> +59 profesionales acompañados</span>
+        <span class="badge"><i class="fa-solid fa-dollar-sign"></i> +$466.000 USD generados</span>
+        <span class="badge"><i class="fa-solid fa-medal"></i> +5 años en marketing</span>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-photo reveal">
+          <img src="images/valentin.jpg" alt="Valentín — Fundador de Performads" onerror="this.onerror=null;this.src='https://placehold.co/400x500?text=Valent%C3%ADn';">
+        </div>
+        <div class="about-text reveal">
+          <h2>Por qué hago lo que hago<br><span style="color:var(--color-accent);">(y por qué Performads es diferente)</span></h2>
+          <p>"Hola, soy <strong>Valentín</strong>. Pasé años viendo a profesionales brillantes —médicos, odontólogos, kinesiólogos con años de estudio y vocación real— cobrando migajas y persiguiendo pacientes.</p>
+          <p>El mercado está roto: <strong>premia al que mejor sabe venderse, no al que mejor sabe curar</strong>.</p>
+          <p>En Performads te damos un sistema predecible para que vos solo te preocupes por lo que mejor hacés: transformar la salud de tus pacientes."</p>
+          <p class="signature">— Valentín, fundador de Performads</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="section-white" style="padding-top:0;">
+    <span class="blob blob--blue-soft blob--md blob--br" aria-hidden="true"></span>
+    <div class="container">
+      <div class="guarantee-block reveal">
+        <div class="guarantee-shield"><i class="fa-solid fa-shield-halved"></i></div>
+        <span class="guarantee-badge"><i class="fa-solid fa-circle-check"></i> Garantía de Activación</span>
+        <h2>El costo de perder esta oportunidad es tu mayor riesgo</h2>
+        <p>Cada espacio vacío en tu agenda hoy es una pérdida neta. <span class="highlight">El Protocolo SAP está diseñado para que rentabilices desde el mes 1.</span></p>
+        <p>Si en los primeros <strong>30 días no generamos tus primeras 60 consultas interesadas</strong>, trabajamos gratis hasta lograrlo. <span class="highlight">El riesgo corre por nuestra cuenta.</span></p>
+      </div>
+    </div>
+
+    <!-- Wave divider into the next (dark) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C240,70 480,10 720,40 C960,70 1200,20 1440,40 L1440,70 L0,70 Z" fill="#0A1628"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-dark">
+    <span class="blob blob--accent-soft blob--lg blob--tl" aria-hidden="true"></span>
+    <span class="blob blob--accent-soft blob--md blob--br" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que más nos preguntan</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-q">
+            <span>¿Para quién es esto?</span>
+            <span class="chev"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Para médicos, odontólogos, kinesiólogos y profesionales que tienen consulta física o virtual y quieren un flujo predecible de pacientes sin depender del azar.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-q">
+            <span>¿Cuánto tiempo me va a quitar?</span>
+            <span class="chev"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Menos de 2 horas semanales. El sistema es Done For You. Una vez configurado, solo recibís los contactos directo en tu WhatsApp.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-q">
+            <span>Ya probé con otra agencia y no funcionó. ¿Por qué esto sería diferente?</span>
+            <span class="chev"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Porque la mayoría de las agencias optimizan para clics o alcance. Nosotros optimizamos para consultas reales de pacientes calificados. Y lo respaldamos con una garantía por contrato, no con promesas.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <div class="faq-q">
+            <span>¿Qué pasa después de agendar la llamada?</span>
+            <span class="chev"><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="faq-a">
+            <p>Verificamos disponibilidad de tu zona en menos de 15 minutos, analizamos tu situación actual durante 45 minutos y te decimos con honestidad si el sistema encaja con tu perfil. Sin compromiso.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wave divider into the next (gradient CTA) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C240,10 480,70 720,30 C960,0 1200,60 1440,30 L1440,70 L0,70 Z" fill="#1E3A5F"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <span class="blob blob--accent-soft blob--lg blob--tr" aria-hidden="true"></span>
+    <div class="container">
+      <div class="reveal">
+        <h2>Volvé predecible tu agenda hoy</h2>
+        <p>Agendá una asesoría gratuita de 45 minutos. Analizamos tu situación actual y te decimos con honestidad si el sistema encaja con tu perfil y tu zona.</p>
+        <a href="#calendario" class="btn btn--lg scroll-link" onclick="fbq('track', 'Lead')">
+          Agendá tu llamada ahora <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <span class="friction">Nota: La asesoría es gratuita, pero tu tiempo y el nuestro son valiosos. Solo agendá si estás dispuesto a invertir en el crecimiento de tu consulta este mes.</span>
+      </div>
+    </div>
+
+    <!-- Wave divider into the next (white) section -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C240,80 480,0 720,30 C960,60 1200,20 1440,50 L1440,70 L0,70 Z" fill="#FFFFFF"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="calendar-section" id="calendario">
+    <span class="blob blob--blue-soft blob--md blob--tl" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Último paso</span>
+        <h2>Agendá tu Sesión de Análisis de Zona</h2>
+        <p>Verificamos disponibilidad de tu zona en menos de 15 minutos.</p>
+      </div>
+      <div class="calendar-wrap reveal">
+        <iframe
+          src="[LINK CALENDLY AQUÍ]"
+          style="width:100%;height:900px;border:none;overflow:hidden;"
+          scrolling="yes"
+          title="Agendar llamada con Performads">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Wave divider into the footer (dark) -->
+    <div class="wave-divider wave-divider--bottom" aria-hidden="true">
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C240,70 480,10 720,40 C960,70 1200,20 1440,40 L1440,70 L0,70 Z" fill="#0A1628"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="blob blob--accent-soft blob--md blob--bl" aria-hidden="true"></span>
+    <div class="container">
+      <div class="logo">Perform<span style="color:var(--color-accent);">ads</span></div>
+      <p>© 2026 Performads — Sistema de Adquisición de Pacientes para Profesionales de la Salud. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for all CTAs
+    document.querySelectorAll('.scroll-link').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            window.scrollTo({
+              top: target.offsetTop - 60,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const q = item.querySelector('.faq-q');
+      q.addEventListener('click', () => {
+        const wasOpen = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!wasOpen) item.classList.add('active');
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Navbar shadow on scroll
+    const nav = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 30) {
+        nav.style.background = 'rgba(10, 22, 40, 0.95)';
+        nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+      } else {
+        nav.style.background = 'rgba(10, 22, 40, 0.85)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+
+    /* HERO PARTICLES — vanilla JS, no libraries.
+       Subtle floating dots in #00A8E8 with connecting lines.
+       Disabled on small screens / reduced-motion / hidden tab. */
+    (function () {
+      const canvas = document.getElementById('hero-particles');
+      if (!canvas) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isMobile = window.matchMedia('(max-width: 600px)').matches;
+      if (reduceMotion) {
+        canvas.style.display = 'none';
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      const hero = canvas.parentElement;
+      let particles = [];
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let width = 0;
+      let height = 0;
+      let rafId = null;
+      let running = true;
+
+      function resize() {
+        const rect = hero.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        // Density scales with viewport but capped to keep things light.
+        // On mobile: half the count and 30% slower movement.
+        const mobile = window.matchMedia('(max-width: 600px)').matches;
+        const densityCap = mobile ? 35 : 70;
+        const densityDivisor = mobile ? 36000 : 18000;
+        const speedFactor = mobile ? 0.7 : 1;
+        const target = Math.min(densityCap, Math.floor((width * height) / densityDivisor));
+        particles = [];
+        for (let i = 0; i < target; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.25 * speedFactor,
+            vy: (Math.random() - 0.5) * 0.25 * speedFactor,
+            r: Math.random() * 1.6 + 0.6,
+            a: Math.random() * 0.2 + 0.3
+          });
+        }
+      }
+
+      function step() {
+        if (!running) return;
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+          if (p.y < -10) p.y = height + 10;
+          if (p.y > height + 10) p.y = -10;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(0, 168, 232, ' + p.a + ')';
+          ctx.fill();
+        }
+
+        // Connecting lines between near particles
+        const maxDist = 120;
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i];
+            const b = particles[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < maxDist * maxDist) {
+              const alpha = (1 - Math.sqrt(d2) / maxDist) * 0.2;
+              ctx.strokeStyle = 'rgba(0, 168, 232, ' + alpha + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        rafId = requestAnimationFrame(step);
+      }
+
+      function start() {
+        if (rafId) return;
+        running = true;
+        step();
+      }
+      function stop() {
+        running = false;
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+
+      resize();
+      start();
+
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 150);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop(); else start();
+      });
+    })();
+  </script>
+</body>
+</html>
