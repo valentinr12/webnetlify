@@ -1277,33 +1277,13 @@ src="https://www.facebook.com/tr?id=761581999911779&ev=PageView&noscript=1"
         if (document.hidden) stop(); else start();
       });
     })();
-function checkCalendlyBooked() {
-  var widget = document.querySelector('.calendly-inline-widget iframe');
-  if (!widget) return;
-  
-  var checkInterval = setInterval(function() {
-    try {
-      var src = widget.src || '';
-      if (src.indexOf('event_scheduled') > -1 || 
-          src.indexOf('confirmation') > -1) {
-        clearInterval(checkInterval);
-        window.location.href = '/gracias.html';
-      }
-    } catch(e) {}
-  }, 1000);
-}
-
-window.addEventListener('load', function() {
-  setTimeout(checkCalendlyBooked, 2000);
-});
-
+  </script>
+  <script>
 window.addEventListener("message", function(e) {
-  if (e.origin.indexOf('calendly.com') > -1) {
-    if (e.data && e.data.event === 'calendly.event_scheduled') {
-      window.location.href = '/gracias.html';
-    }
+  if(e.data.event && e.data.event === "calendly.event_scheduled") {
+    window.location.href = "/gracias.html";
   }
 });
-  </script>
+</script>
 </body>
 </html>
