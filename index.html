@@ -949,7 +949,7 @@ src="https://www.facebook.com/tr?id=761581999911779&ev=PageView&noscript=1"
 
       <div class="about-grid">
         <div class="about-photo reveal">
-          <img src="images/valentin.jpg" alt="Valentín — Fundador de Performads" onerror="this.onerror=null;this.src='https://placehold.co/400x500?text=Valent%C3%ADn';">
+          <img src="images/foto valentin.jpeg" alt="Valentín — Fundador de Performads" onerror="this.onerror=null;this.src='https://placehold.co/400x500?text=Valent%C3%ADn';">
         </div>
         <div class="about-text reveal">
           <h2>Por qué hago lo que hago<br><span style="color:var(--color-accent);">(y por qué Performads es diferente)</span></h2>
@@ -1077,7 +1077,7 @@ src="https://www.facebook.com/tr?id=761581999911779&ev=PageView&noscript=1"
       </div>
       <div class="calendar-wrap reveal">
         <iframe
-          src="[LINK CALENDLY AQUÍ]"
+          src="https://calendly.com/performadsmkt/45min"
           style="width:100%;height:900px;border:none;overflow:hidden;"
           scrolling="yes"
           title="Agendar llamada con Performads">
@@ -1277,6 +1277,11 @@ src="https://www.facebook.com/tr?id=761581999911779&ev=PageView&noscript=1"
         if (document.hidden) stop(); else start();
       });
     })();
+    window.addEventListener('message', function(e) {
+  if (e.data.event === 'calendly.event_scheduled') {
+    window.location.href = '/gracias.html';
+  }
+});
   </script>
 </body>
 </html>
